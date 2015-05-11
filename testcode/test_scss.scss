@@ -1,0 +1,7 @@
+html {
+    main {
+        &:before {
+            content:"SCSS is working";
+        }
+    }
+}
