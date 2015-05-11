@@ -1,2 +1,3 @@
 # Cody
 Tools for publishers
+아직 아키텍쳐 디자인중입니다...
