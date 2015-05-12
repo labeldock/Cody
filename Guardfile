@@ -28,23 +28,48 @@ require 'ostruct'
 
 module Cody
     class OpenStruct < OpenStruct
-        @layout_file_path = nil
-        
-        def self.template(file, params={})
-            Cody::OpenStruct.new(params).render(file)
+        def initialize erb_path, params = {}
+            @erb_path    = erb_path ? erb_path : nil
+            @erb_blocks  = {}
+            @erb_layout  = nil
+            super params
         end
         def layout path
-            puts "parsing block #{path}"
-            "layout result? me?"
+            begin
+                path = File.expand_path(path,File.split(@erb_path)[0])
+                read = ''
+                file = File.new path, "r"
+                while line = file.gets
+                    read += line
+                end
+                @erb_layout = read
+            rescue
+                @erb_layout = "no search layout file #{path}"
+            end
         end
-        def block path
-            puts "parsing block #{path}"
+        def block name
+            puts "block name #{ name } #{ name.class }"
+            puts "@erb_blocks #{ @erb_blocks } #{ @erb_blocks.class }"
+            puts "@erb_blocks #{ @erb_blocks[name] }"
+            if block_given?
+                @erb_blocks[name] = yield
+            else
+                @erb_blocks[name]
+            end
         end
         def include path
-            puts "include from #{ path }"
         end
-        def render(file)
-            ERB.new(File.read(file)).result(binding)
+        def partial path, data
+        end
+        def partial_each path, data
+        end
+        def erb_result
+            erb = ERB.new(File.read(@erb_path))
+            erb.result(binding)
+            if @erb_layout
+                erb = ERB.new(@erb_layout)
+                erb.result(binding)
+            end
         end
     end
 end
@@ -58,14 +83,14 @@ module ::Guard
     def ouput_file(path)
       begin
         basename   = File.basename(path).gsub(/\.erb$/,'.html')
-        openstruct = 
-        
+        openstruct = Cody::OpenStruct.new(path)
         writepath     = options[:output] + '/' + basename 
         abs_writepath = File.expand_path("../#{writepath}",__FILE__)
         
         File.open(abs_writepath, 'w') do |f|
-            Cody::OpenStruct.new.render(path)
-            f.write(openstruct)
+            result = openstruct.erb_result
+            puts "ERB result = #{ result }"
+            f.write result
         end
         
         puts "Compiling #{path} to #{ writepath }"
