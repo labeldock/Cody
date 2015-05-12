@@ -11,7 +11,6 @@ gem 'uglifier'
 
 #file monitoring
 gem 'guard'
-gem 'guard-erb'
 gem 'guard-sass'
 gem 'guard-less'
 gem 'guard-uglify'
