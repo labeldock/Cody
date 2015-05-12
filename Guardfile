@@ -29,7 +29,7 @@ require 'ostruct'
 module Cody
     class OpenStruct < OpenStruct
         def initialize erb_path, params = {}
-            @erb_path    = erb_path ? erb_path : nil
+            @erb_path    = erb_path
             @erb_blocks  = {}
             @erb_layout  = nil
             super params
@@ -44,13 +44,12 @@ module Cody
                 end
                 @erb_layout = read
             rescue
-                @erb_layout = "no search layout file #{path}"
+                error = "ERROR : #{@erb_path} => no search layout file #{path}"
+                puts error
+                @erb_layout = error
             end
         end
         def block name
-            puts "block name #{ name } #{ name.class }"
-            puts "@erb_blocks #{ @erb_blocks } #{ @erb_blocks.class }"
-            puts "@erb_blocks #{ @erb_blocks[name] }"
             if block_given?
                 @erb_blocks[name] = yield
             else
@@ -61,7 +60,7 @@ module Cody
         end
         def partial path, data
         end
-        def partial_each path, data
+        def model
         end
         def erb_result
             erb = ERB.new(File.read(@erb_path))
@@ -104,13 +103,16 @@ module ::Guard
 end
 
 Dir.glob('**/*.erb') do |erb_path|
-    erb_options = {
-        input: erb_path,
-        output: File.split(erb_path)[0]
-    }
-    guard 'erb', erb_options do
-        watch erb_path
-    end
+    file_path = File.split(erb_path)
+    unless file_path[1].match /^\_/
+        erb_options = {
+            input: erb_path,
+            output: file_path[0]
+        }
+        guard 'erb', erb_options do
+            watch erb_path
+        end
+    end 
 end
 
 #livereload

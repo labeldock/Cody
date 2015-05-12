@@ -15,12 +15,23 @@ Tools for publishers
   - 잼으로 배포가능해지면 좋겠다.
   - sh를 굳이 안썼으면 좋겠다.
 
-## Support
+## feature
+  - code complie
+  - live reload
+  - Cody::ERB extend syntex
+    - layout
+    - block
+    - include (incomplete)
+    - partial (incomplete)
+    - model   (incomplete)
+  - Cody::Deploy (incomplete)
+
+## Supported compile format
   - erb
   - scss
   - js
 
-## Will support
+## Will support format
   - Less
   - Coffee Script
   - JS Compressor
