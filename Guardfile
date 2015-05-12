@@ -28,11 +28,23 @@ require 'ostruct'
 
 module Cody
     class OpenStruct < OpenStruct
+        @layout_file_path = nil
+        
         def self.template(file, params={})
-            Cody::OpenStruct.new(params).render(File.read(file))
+            Cody::OpenStruct.new(params).render(file)
         end
-        def render(template)
-            ERB.new(template).result(binding)
+        def layout path
+            puts "parsing block #{path}"
+            "layout result? me?"
+        end
+        def block path
+            puts "parsing block #{path}"
+        end
+        def include path
+            puts "include from #{ path }"
+        end
+        def render(file)
+            ERB.new(File.read(file)).result(binding)
         end
     end
 end
@@ -45,14 +57,15 @@ module ::Guard
     private
     def ouput_file(path)
       begin
-        basename  = File.basename(path).gsub(/\.erb$/,'.html')
-        template  = Cody::OpenStruct.template(path)
+        basename   = File.basename(path).gsub(/\.erb$/,'.html')
+        openstruct = 
         
-        writepath = options[:output] + '/' + basename 
-        abspath   = File.expand_path("../#{writepath}",__FILE__)
+        writepath     = options[:output] + '/' + basename 
+        abs_writepath = File.expand_path("../#{writepath}",__FILE__)
         
-        File.open(abspath, 'w') do |f|
-            f.write(template)
+        File.open(abs_writepath, 'w') do |f|
+            Cody::OpenStruct.new.render(path)
+            f.write(openstruct)
         end
         
         puts "Compiling #{path} to #{ writepath }"
@@ -70,7 +83,7 @@ Dir.glob('**/*.erb') do |erb_path|
         input: erb_path,
         output: File.split(erb_path)[0]
     }
-    guard 'erb', :input => erb_path, :output => File.split(erb_path)[0] do
+    guard 'erb', erb_options do
         watch erb_path
     end
 end
