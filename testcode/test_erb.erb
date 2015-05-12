@@ -6,10 +6,13 @@
 </head>
 <body>
     <h1>Hello ERB</h1>
+    <h2>Test system output</h2>
     <ul>
-        <% 3.times do %>
-        <li>3times erb ~</li> 
-        <% end %>
+        <li><%= "- ARGV : #{ARGV}" %></li>
+        <li><%= "- Ruby Version : #{RUBY_VERSION}" %></li>
+        <li><%= "- Load path : #{$LOAD_PATH}" %></li>
+        <li><%= "- line number : #{__LINE__}" %></li>
+        
     </ul>
     
 </body>

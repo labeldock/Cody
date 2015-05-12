@@ -9,31 +9,23 @@ Dir.glob('**/*.scss') do |scss_path|
     end
 end
 
-#less
-# Dir.glob('**/*.less') do |less_path|
-#     less_options = {
-#         input: less_path, 
-#         output: File.split(less_path)[0],
-#         compress: true
-#     }
-#     guard :less, less_options do
-#         watch less_path
-#     end
-# end
-
 #js
-# Dir.glob('**/*.js') do |js_path|
-#     unless js_path.match(/.min.js$/)
-#         guard "uglify", :input => 'js' do
-#             watch js_path
-#         end
-#     end
-# end
+Dir.glob('**/*.js') do |js_path|
+    unless js_path.match(/.min.js$/)
+        js_options = {
+            output: "#{File.split(js_path)[0]}/#{File.basename(js_path).gsub(/\.js$/,'.min.js')}"
+        }
+        guard "uglify", js_options do
+            watch js_path
+        end
+    end
+end
 
-#inline-guard erb
-require 'guard/compat/plugin'
+#inline-guard
+require 'guard'
 require 'erb'
 require 'ostruct'
+
 module Cody
     class OpenStruct < OpenStruct
         def self.template(file, params={})
@@ -87,3 +79,14 @@ end
 guard 'livereload' do
   watch %r{^.*\.(html|css|js|png|jpg)$}
 end
+
+# less not support yet
+# Dir.glob('**/*.less') do |less_path|
+#     less_options = {
+#         output: File.split(less_path)[0],
+#         compress: true
+#     }
+#     guard :less, less_options do
+#         watch Regexp.new(less_path)
+#     end
+# end

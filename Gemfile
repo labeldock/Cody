@@ -12,10 +12,10 @@ gem 'uglifier'
 #file monitoring
 gem 'guard'
 gem 'guard-sass'
-gem 'guard-less'
 gem 'guard-uglify'
 gem 'guard-livereload'
 
 #later..
+#gem 'guard-less'
 #gem 'coffeescript'
 #gem 'guard-coffeescript'

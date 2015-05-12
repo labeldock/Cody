@@ -34,13 +34,6 @@ GEM
       pry (>= 0.9.12)
       shellany (~> 0.0)
       thor (>= 0.18.1)
-    guard-compat (1.2.1)
-    guard-erb (0.0.2)
-      guard (>= 0.2.2)
-    guard-less (2.0.0)
-      guard (~> 2.0)
-      guard-compat (~> 1.2)
-      less (~> 2.3)
     guard-livereload (2.4.0)
       em-websocket (~> 0.5)
       guard (~> 2.8)
@@ -95,8 +88,6 @@ PLATFORMS
 DEPENDENCIES
   compass
   guard
-  guard-erb
-  guard-less
   guard-livereload
   guard-sass
   guard-uglify
