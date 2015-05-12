@@ -25,7 +25,7 @@ Tools for publishers
 
 
 ## gemfile
-ERB만 제외하고 다른부분은 잼을 사용합니다.
+ERB부분만 제가 작성하였고 그외의 부분은 잼을 사용합니다.
   - compass
   - less
   - therubyracer
