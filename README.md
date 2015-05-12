@@ -34,15 +34,10 @@ Tools for publishers
 ## Will support format
   - Less
   - Coffee Script
-  - JS Compressor
-  - ERB :: Parse JSON model
-  - ERB :: Layout template
-
 
 ## gemfile
 ERB부분만 제가 작성하였고 그외의 부분은 잼을 사용합니다.
   - compass
-  - less
   - therubyracer
   - uglifier
   - guard
@@ -51,6 +46,7 @@ ERB부분만 제가 작성하였고 그외의 부분은 잼을 사용합니다.
   - guard-livereload
   
 ## will use gemfile
+  - less
   - guard-less
   - coffeescript
   - guard-coffeescript
