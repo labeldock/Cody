@@ -92,14 +92,11 @@ module Cody
         end
         
         def erb_result_with_text text
-            erb = ERB.new(text)
-            r = erb.result(binding)
-            if @erb_layout
-                erb_layout = ERB.new(@erb_layout)
-                r = erb_layout.result(binding)
-            end
-            return r
+            erb_result = ERB.new(text).result(binding)
+            erb_result = ERB.new(@erb_layout).result(binding) if @erb_layout
+            return erb_result
         end
+        
         def erb_result
             erb_result_with_text self.include("../#{@erb_path}", "no search file")
         end
