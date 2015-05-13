@@ -91,6 +91,7 @@ DEPENDENCIES
   guard-livereload
   guard-sass
   guard-uglify
+  json
   less
   therubyracer
   uglifier

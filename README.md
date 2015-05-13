@@ -11,9 +11,13 @@ Tools for publishers
   - sh cody라고 치고 코드를 작성하면 수정하는 즉시 자동 컴파일 된다.
 
 ## 목표
-  - sh cody deploy라고 치면 최적화된 소스가 별개로 생겼으면 좋겠다.
   - 잼으로 배포가능해지면 좋겠다.
-  - sh를 굳이 안썼으면 좋겠다.
+  - 다음과 같이 쉘 커맨드가 단순화 되면 좋겠다.
+``` sh
+$ cody new
+$ cody start
+$ cody deploy
+```
 
 ## feature
   - code complie
@@ -21,9 +25,9 @@ Tools for publishers
   - Cody::ERB extend syntex
     - layout
     - block
-    - include (incomplete)
-    - partial (incomplete)
-    - model   (incomplete)
+    - include
+    - partial (검증이 완전히 안됨)
+    - model
   - Cody::Deploy (incomplete)
 
 ## Supported compile format

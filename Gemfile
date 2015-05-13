@@ -15,6 +15,9 @@ gem 'guard-sass'
 gem 'guard-uglify'
 gem 'guard-livereload'
 
+#model parse
+gem 'json'
+
 #later..
 #gem 'guard-less'
 #gem 'coffeescript'
