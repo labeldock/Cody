@@ -8,7 +8,7 @@ Tools for publishers
 ## 사용법
 
 ##### 1. install ruby
-do it your self
+do it your self, please
 
 ##### 2. download cody and commend it from root
 ```sh
