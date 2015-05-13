@@ -7,22 +7,22 @@ Tools for publishers
 
 ## 사용법
 
-### 1. install ruby
+##### 1. install ruby
 do it your self
 
-### 2. download cody and commend it from root
+##### 2. download cody and commend it from root
 ```sh
 ./cody setup
 or
 ./cody s
 ```
 
-### 3. start cody
+##### 3. start cody
 ```sh
 ./cody
 ```
 
-### 4. deploy your code
+##### 4. deploy your code
 ```sh
 ./cody deploy
 or
