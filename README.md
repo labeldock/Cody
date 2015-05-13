@@ -13,8 +13,6 @@ do it your self, please
 ##### 2. download cody and commend it from root
 ```sh
 ./cody setup
-or
-./cody s
 ```
 
 ##### 3. start cody
@@ -25,8 +23,6 @@ or
 ##### 4. deploy your code
 ```sh
 ./cody deploy
-or
-./cody d
 ```
 
 ## Todo
