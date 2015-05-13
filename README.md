@@ -6,18 +6,37 @@ Tools for publishers
 
 
 ## 사용법
-  - 루비를 설치한다.
-  - 루트에서 bundle install을쳐 필요한 잼을 얻는다.
-  - sh cody라고 치고 코드를 작성하면 수정하는 즉시 자동 컴파일 된다.
 
-## 목표
-  - 잼으로 배포가능해지면 좋겠다.
-  - 다음과 같이 쉘 커맨드가 단순화 되면 좋겠다.
-``` sh
-$ cody new
-$ cody start
-$ cody deploy
+### 1. install ruby
+do it your self
+
+### 2. download cody and commend it from root
+```sh
+./cody setup
+or
+./cody s
 ```
+
+### 3. start cody
+```sh
+./cody
+```
+
+### 4. deploy your code
+```sh
+./cody deploy
+or
+./cody d
+```
+
+## Todo
+  - deploy 작동되도록
+  - cody_conf.json 생성되도록 만들기
+  - 서버랑 바인딩
+  - less, coffeescript 지원
+  - Gemfile, Guardfile등이 들어나지 않는 방법이 없을까?
+  - 잼으로 배포하거나 말거나
+
 
 ## feature
   - code complie
