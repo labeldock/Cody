@@ -8,13 +8,14 @@ if ARGV.length == 0
     puts "Cody start v#{cody_version}" 
     `bundle exec guard`
 else
-    if ARGV[0].match /^[setup|s]$/
+    if ARGV[0].match /^(setup|s)$/
         `bundle install`
          #todo : make cody config
          puts "not ready to make config"
-    end
-    if ARGV[0].match /^[deploy|d]$/
-        
+    elsif ARGV[0].match /^(erb|e)$/
+        #only erb mode
+        `bundle exec guard only erb`
+    elsif ARGV[0].match /^(deploy|d)$/
         #deploy path ready
         root_path   = File.split(__FILE__)[0]
         deploy_name = ARGV[1] ? ARGV[1] : "converted-html"

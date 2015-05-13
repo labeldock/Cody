@@ -1,3 +1,5 @@
+
+
 #sass
 Dir.glob('**/*.scss') do |scss_path|
     scss_options = {
@@ -104,7 +106,7 @@ module Cody
 end
 
 module ::Guard
-  class Erb < Plugin
+  class CodyErb < Plugin
     def run_on_modifications(paths)
         paths.each{ |path| ouput_file path } if paths
     end
@@ -113,36 +115,25 @@ module ::Guard
       begin
         basename      = File.basename(path).gsub(/\.erb$/,'.html')
         openstruct    = Cody::ERBStruct.new(path)
-        writepath     = options[:output] + '/' + basename 
+        writepath     = File.split(path)[0] + '/' + basename 
         abs_writepath = File.expand_path("../#{writepath}",__FILE__)
         
         File.open(abs_writepath, 'w') do |f|
             result = openstruct.erb_result
-            puts "ERB result = #{ result }"
             f.write result
         end
-        
-        puts "Compiling #{path} to #{ writepath }"
+        puts "Compiling ERB #{path} to #{ writepath }"
         true
       rescue Exception => e
-        puts "Compiling #{path} failed: #{e}"
+        puts "Compiling ERB #{path} failed: #{e}"
         false
       end    
     end
   end
 end
 
-Dir.glob('**/*.erb') do |erb_path|
-    file_path = File.split(erb_path)
-    unless file_path[1].match /^\_/
-        erb_options = {
-            input: erb_path,
-            output: file_path[0]
-        }
-        guard 'erb', erb_options do
-            watch erb_path
-        end
-    end 
+guard 'codyerb' do
+    watch %r{^.*\.(erb)$}
 end
 
 #livereload
@@ -156,6 +147,20 @@ livereload_options = {
 guard 'livereload', livereload_options do
   watch %r{^.*\.(html|css|js|png|jpg)$}
 end
+
+#when new file then reset guard
+# require 'listen'
+# listener = Listen.to(File.split(__FILE__)[0]) do |modified, added, removed|
+#     if added
+#         case File.extname(added)
+#         when ".scss"
+#         when ".js"
+#         when ".erb"
+            
+#     end
+# end
+# listener.start
+
 
 # less not support yet
 # Dir.glob('**/*.less') do |less_path|

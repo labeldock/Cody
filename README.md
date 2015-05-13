@@ -1,3 +1,8 @@
+## This prject is closed
+  - 본 프로젝트는 종결이 되었습니다.
+  - 일부 개발된 내용들을 지킬의 확장 플러그인으로 들어갈수 있는방법을 강구할것입니다.
+  - 본 리퍼지토리는 어느 순간 지워질것입니다.
+
 ## Cody
 Tools for publishers
 
@@ -19,8 +24,10 @@ do it your self, please
 ```sh
 ./cody
 ```
-##### 4. livereload
-
+##### 4. livereload url
+```
+http://localhost:3300
+```
 
 ##### 5. deploy your code
 ```sh
@@ -31,15 +38,12 @@ do it your self, please
   - _ 로 시작되는 폴더는 템플릿용 폴더로 간주하고 삭제됩니다.
 
 ## Todo
-#### 우선순위 높음
-  - 서버랑 바인딩
-  - OSX 작동여부 확인
-  - 실제 프로젝트 적용후 여러가지 테스트(5.14일부터)
 
 #### 우선순위 낮음
   - less, coffeescript 지원
   - Gemfile, Guardfile등이 들어나지 않고 사용
   - cody_conf.json 생성되도록 만들기
+  - 서버페이지에 붙어서 사용 가능하도록
   - 잼으로 배포하거나 말거나
 
 ## feature
