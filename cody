@@ -1,5 +1,8 @@
 #!/usr/bin/ruby
-cody_version = '0.0.2'
+require 'fileutils'
+
+cody_version = '0.0.3'
+cody_deploy_except = ["cody", "Gemfile", "Gemfile.lock", "Guardfile"]
 
 if ARGV.length == 0
     puts "Cody start v#{cody_version}" 
@@ -11,6 +14,36 @@ else
          puts "not ready to make config"
     end
     if ARGV[0].match /^[deploy|d]$/
-        puts "not ready to make deploy"
+        
+        #deploy path ready
+        root_path   = File.split(__FILE__)[0]
+        deploy_name = ARGV[1] ? ARGV[1] : "converted-html"
+        deploy_path = File.expand_path deploy_name, root_path
+        
+        #deploy path clear
+        FileUtils.rm_rf deploy_path if File.exist?(deploy_path)
+        FileUtils.mkdir deploy_path
+        
+        #add deploy_except
+        cody_deploy_except << deploy_name
+        Dir.glob('*').each do |filename|
+            #no copy cody file
+            next if cody_deploy_except.include? filename
+            
+            #copy soruce
+            FileUtils.cp_r File.expand_path(filename, root_path), File.expand_path(filename, deploy_path)
+        end
+        
+        #clear source files
+        Dir.glob("#{deploy_path}/**/\_*") do |f|
+            FileUtils.rm_rf f if File.directory? f
+        end
+        Dir.glob("#{deploy_path}/**/*.erb") do |f|
+            FileUtils.rm f
+        end
+        Dir.glob("#{deploy_path}/**/*.scss") do |f|
+            FileUtils.rm f
+        end
+        
     end
 end

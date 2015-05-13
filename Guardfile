@@ -111,8 +111,8 @@ module ::Guard
     private
     def ouput_file(path)
       begin
-        basename   = File.basename(path).gsub(/\.erb$/,'.html')
-        openstruct = Cody::ERBStruct.new(path)
+        basename      = File.basename(path).gsub(/\.erb$/,'.html')
+        openstruct    = Cody::ERBStruct.new(path)
         writepath     = options[:output] + '/' + basename 
         abs_writepath = File.expand_path("../#{writepath}",__FILE__)
         
@@ -146,7 +146,14 @@ Dir.glob('**/*.erb') do |erb_path|
 end
 
 #livereload
-guard 'livereload' do
+livereload_options = {
+    host: '0.0.0.0',
+    port: '3300',
+    apply_css_live: true,
+    grace_period: 0
+}
+
+guard 'livereload', livereload_options do
   watch %r{^.*\.(html|css|js|png|jpg)$}
 end
 
