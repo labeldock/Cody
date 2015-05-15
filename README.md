@@ -20,14 +20,6 @@
 ./cody deploy [folder path]
 ```
 
-### Deploy시 주의할점
-  - _ 로 시작되는 폴더는 템플릿용 폴더로 간주하고 삭제됩니다.
-
-## Todo
-
- - [ ] ERBStruct 를 listen gem에 최적화하기.
- - [ ] 실제프로젝트에서 검증하기
-
 ## Feature
   - [x] Cody::ERBStruct
     - [x] :layout
@@ -36,6 +28,13 @@
     - [ ] :partial
     - [x] :json
   - [x] Cody::Deploy
+
+### 주의할점
+  - Deploy시 "_"로 시작되는 폴더는 템플릿용 폴더로 간주하고 삭제됩니다.
+
+## Todo
+ - [ ] ERBStruct 를 listen gem에 최적화하기.
+ - [ ] 실제프로젝트에서 검증하기
 
 ## Supported compile format
   - erb
