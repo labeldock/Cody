@@ -29,13 +29,13 @@
  - [x] 실제프로젝트에서 검증하기
 
 ## Feature
-  - [ ]Cody::ERBStruct
-    - [ ]layout
-    - [ ]block
-    - [ ]include
-    - [ ]partial
-    - [ ]json
-  - [ ]Cody::Deploy
+  - [ ] Cody::ERBStruct
+    - layout
+    - block
+    - include
+    - partial
+    - json
+  - [ ] Cody::Deploy
 
 ## Supported compile format
   - erb
