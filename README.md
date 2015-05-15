@@ -24,21 +24,18 @@
   - _ 로 시작되는 폴더는 템플릿용 폴더로 간주하고 삭제됩니다.
 
 ## Todo
-- [x] @mentions, #refs, [links](), **formatting**, and <del>tags</del> supported
-- [x] list syntax required (any unordered or ordered list supported)
-- [x] this is a complete item
-- [ ] this is an incomplete item
- - [x] ERBStruct 최대한 상대경로로 고치기
+
+ - [x] ERBStruct 최대한 상대 경로로 작동할수 있도록 고치기
  - [x] 실제프로젝트에서 검증하기
 
 ## Feature
-  - Cody::ERBStruct
-    - layout
-    - block
-    - include
-    - partial
-    - json
-  - Cody::Deploy
+  - [ ]Cody::ERBStruct
+    - [ ]layout
+    - [ ]block
+    - [ ]include
+    - [ ]partial
+    - [ ]json
+  - [ ]Cody::Deploy
 
 ## Supported compile format
   - erb
