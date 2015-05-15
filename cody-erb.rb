@@ -1,18 +1,24 @@
 require 'ostruct'
 require 'erb'
 require 'json'
+require 'active_support'
 
 module Cody
+    def self.version
+        "0.0.4"
+    end
     class ERBStruct < OpenStruct
         def initialize erb_path, params = {}
-            @erb_path    = erb_path
-            @erb_blocks  = {}
-            @erb_layout  = nil
+            @erb_path   = erb_path
+            @erb_pwd    = File.split(@erb_path)[0]
+            @erb_blocks = {}
+            @erb_layout = nil
+            @erb_buffer = 0
             super params
         end
         def include path, error_messege = nil
             begin
-                path = File.expand_path(path,File.split(@erb_path)[0])
+                path = File.expand_path(path,@erb_pwd)
                 read = ''
                 file = File.new path, "r"
                 while line = file.gets
@@ -21,13 +27,13 @@ module Cody
                 read
             rescue Exception => e
                 error_messege ||= "no search include file"
-                "ERROR : #{@erb_path} => #{error_messege}\n => #{path}\n#{e}"
+                puts "ERROR : #{@erb_path} => #{error_messege}\n => #{path}\n#{e}"
             end
         end
         def layout path
             @erb_layout = self.include path, "no search layout file"
         end
-        def partial path, datas
+        def partial_each path, datas = nil
             case datas
                 when Array
                     #pass
@@ -42,9 +48,9 @@ module Cody
             datas.each do |data|
                 #make model
                 partial_model = {"model" => {}}
-                data.each{ |key, value| partial_model["model"][key.to_sym] = value }
+                data.each{ |key, value| partial_model["model"][key] = value }
                 #model render result
-                partial_result << Cody::ERBStruct.new(@erb_path,partial_model).erb_result_with_text(partial_text)
+                partial_result << Cody::ERBStruct.new(nil,partial_model).erb_result_with_text(partial_text)
             end
             partial_result.join "\n"
         end
@@ -55,14 +61,18 @@ module Cody
                 puts "model(json) load result => #{ result }"
                 result
             rescue Exception => e
-                puts e.message
+                puts "Cody::ERBStruct::model error => #{e.message}"
+                puts "parse model => #{json}"
             end
         end
-        def block name
-            if block_given?
-                @erb_blocks[name] = yield
+        def block name, default = ""
+            if @erb_blocks[name]
+                @erb_blocks[name] ? @erb_blocks[name] : default
             else
-                @erb_blocks[name]
+                #buffer fix
+                buffer = yield.strip
+                @erb_blocks[name] = buffer[(@erb_buffer)..(buffer.length)].strip
+                @erb_buffer = buffer.length
             end
         end
         
@@ -73,7 +83,7 @@ module Cody
         end
         
         def erb_result
-            erb_result_with_text self.include("../#{@erb_path}", "no search file")
+            erb_result_with_text self.include(@erb_path, "no search file")
         end
     end
 end

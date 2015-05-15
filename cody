@@ -1,27 +1,29 @@
 #!/usr/bin/ruby
 require 'fileutils'
+begin
+   require 'cody-erb'
+rescue Exception => e
+    require './cody-erb.rb'
+end
 
-cody_version = '0.0.4'
 cody_deploy_except = ["cody", "Gemfile", "Gemfile.lock", "Guardfile"]
 
 if ARGV.length == 0
     #load cody-erb
     
-    begin
-       require 'cody-erb'
-    rescue Exception => e
-        require './cody-erb.rb'
-    end
+    
     require 'listen'
     
-    listener = Listen.to(Dir.pwd, only: /\.erb$/) do |modified, added, removed|
+    listener = Listen.to(Dir.pwd, {only: /\.erb$/}) do |modified, added, removed|
         
         modified.each do |p|
-            #cloud9 meta escape
+            #break temp file
+            next if p.match /\/\_.+.erb$/
+                
+            #cloud9(c9.io) meta escape
+            source_path = p.gsub(/\.c9\/metadata\/workspace\//, '')
             
-            
-            source_path = p.gsub /\.c9\/metadata\/workspace\//, ''
-            puts "ch!!! source_path#{source_path}"
+            #cody-erb execute
             begin
                 write_path = "#{File.split(source_path)[0]}/#{File.basename(source_path).gsub(/\.erb$/,'.html')}" 
                 
@@ -39,13 +41,14 @@ if ARGV.length == 0
     end
     listener.start
     
-    puts "cody#{cody_version} listen start\nCtrl+c is escape"
+    puts "cody#{Cody::version} listen start\nCtrl+c is escape"
     sleep
 else
     case ARGV[0]
     when /^(init|i)$/
         puts 'cody init...'
         `gem install listen`
+        `gem install activesupport`
         `gem install json`
     when /^(deploy|d)$/
         #deploy path ready

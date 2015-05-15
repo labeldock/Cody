@@ -1,7 +1,20 @@
 <% layout "_layouts/layout.erb" %>
-<% block :main do %>
-    메인의 시작
-    <%= include "_includes/include_comment.html" %>
-    <%= partial "_includes/partial.erb", model("_models/data.json") %>
+<% block :title do %>
+    <title>
+        타이틀 컨텐츠
+    </title>
 <% end %>
+<% block :main do %>
+    <main>
+        메인 컨텐츠
+    </main>
+<%= include "_includes/include_comment.html" %>
+
+<% end %>
+<% block :footer do %>
+    <footer>
+        풋터컨텐츠
+    </footer>
+<% end %>
+
 
