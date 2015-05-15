@@ -21,13 +21,15 @@
 ```
 
 ## Feature
-  - [x] Cody::ERBStruct
-    - [x] :layout
-    - [x] :block
-    - [x] :include
-    - [ ] :partial
-    - [x] :json
-  - [x] Cody::Deploy
+  - Cody::ERBStruct
+    - [o] :layout
+    - [o] :block
+    - [o] :include
+    - [o] :json
+    - [-] :partial
+    - [x] :helper
+    
+  - Cody::Deploy
 
 ### 주의할점
   - Deploy시 "_"로 시작되는 폴더는 템플릿용 폴더로 간주하고 삭제됩니다.
