@@ -30,11 +30,11 @@
 
 ## Feature
   - [x] Cody::ERBStruct
-    - [x] layout
-    - [x] block
-    - [x] include
-    - [ ] partial
-    - [x] json
+    - [x] :layout
+    - [x] :block
+    - [x] :include
+    - [ ] :partial
+    - [x] :json
   - [x] Cody::Deploy
 
 ## Supported compile format
