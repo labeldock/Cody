@@ -25,17 +25,17 @@
 
 ## Todo
 
- - [x] ERBStruct 최대한 상대 경로로 작동할수 있도록 고치기
- - [x] 실제프로젝트에서 검증하기
+ - [ ] ERBStruct 최대한 상대 경로로 작동할수 있도록 고치기
+ - [ ] 실제프로젝트에서 검증하기
 
 ## Feature
-  - [ ] Cody::ERBStruct
-    - layout
-    - block
-    - include
-    - partial
-    - json
-  - [ ] Cody::Deploy
+  - [x] Cody::ERBStruct
+    - [x] layout
+    - [x] block
+    - [x] include
+    - [ ] partial
+    - [x] json
+  - [x] Cody::Deploy
 
 ## Supported compile format
   - erb
