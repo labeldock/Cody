@@ -25,7 +25,7 @@
 
 ## Todo
 
- - [ ] ERBStruct 최대한 상대 경로로 작동할수 있도록 고치기
+ - [ ] ERBStruct 를 listen gem에 최적화하기.
  - [ ] 실제프로젝트에서 검증하기
 
 ## Feature
