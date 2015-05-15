@@ -1,21 +1,125 @@
 #!/usr/bin/ruby
 require 'fileutils'
 
-cody_version = '0.0.3'
+cody_version = '0.0.4'
 cody_deploy_except = ["cody", "Gemfile", "Gemfile.lock", "Guardfile"]
 
 if ARGV.length == 0
-    puts "Cody start v#{cody_version}" 
-    `bundle exec guard`
+    require 'ostruct'
+    require 'erb'
+    require 'json'
+    require 'listen'
+    
+    module Cody
+        class ERBStruct < OpenStruct
+            def initialize erb_path, params = {}
+                @erb_path    = erb_path
+                @erb_blocks  = {}
+                @erb_layout  = nil
+                super params
+            end
+            def include path, error_messege = nil
+                begin
+                    path = File.expand_path(path,File.split(@erb_path)[0])
+                    read = ''
+                    file = File.new path, "r"
+                    while line = file.gets
+                        read += line
+                    end
+                    read
+                rescue Exception => e
+                    error_messege ||= "no search include file"
+                    "ERROR : #{@erb_path} => #{error_messege}\n => #{path}\n#{e}"
+                end
+            end
+            def layout path
+                @erb_layout = self.include path, "no search layout file"
+            end
+            def partial path, datas
+                case datas
+                    when Array
+                        #pass
+                    when Hash
+                        datas = [datas]
+                    else
+                        return "#{@erb_path} => Arguments(2) is must be Array or Hash\n path => #{path}\n data => (#{datas.class})#{datas}"
+                end
+                partial_text   = self.include path, 'no search partial file'
+                partial_result = []
+                
+                datas.each do |data|
+                    #make model
+                    partial_model = {"model" => {}}
+                    data.each{ |key, value| partial_model["model"][key.to_sym] = value }
+                    #model render result
+                    partial_result << Cody::ERBStruct.new(@erb_path,partial_model).erb_result_with_text(partial_text)
+                end
+                partial_result.join "\n"
+            end
+            def model path
+                begin
+                    json = self.include path, "no search model file"
+                    result = JSON.parse(json)
+                    puts "model(json) load result => #{ result }"
+                    result
+                rescue Exception => e
+                    puts e.message
+                end
+            end
+            def block name
+                if block_given?
+                    @erb_blocks[name] = yield
+                else
+                    @erb_blocks[name]
+                end
+            end
+            
+            def erb_result_with_text text
+                erb_result = ERB.new(text).result(binding)
+                erb_result = ERB.new(@erb_layout).result(binding) if @erb_layout
+                return erb_result
+            end
+            
+            def erb_result
+                erb_result_with_text self.include("../#{@erb_path}", "no search file")
+            end
+        end
+    end
+    
+    
+    
+    listener = Listen.to(Dir.pwd, only: /\.erb$/) do |modified, added, removed|
+        
+        modified.each do |p|
+            #cloud9 meta escape
+            source_path = p.gsub(/.c9\/metadata.+/) { |s| File.basename(s) }
+            
+            begin
+                write_path = "#{File.split(source_path)[0]}/#{File.basename(source_path).gsub(/\.erb$/,'.html')}" 
+                
+                File.open(write_path, 'w') do |f|
+                    erbstruct = Cody::ERBStruct.new(source_path)
+                    result    = erbstruct.erb_result
+                    f.write result
+                end
+                puts "[OK]Compiling ERB #{source_path} to #{ write_path }"
+            rescue Exception => e
+                puts "[Opps]Compiling ERB #{source_path} failed: #{e}"
+            end
+        end if modified
+        
+    end
+    listener.start
+    
+    puts "cody#{cody_version} listen start\nCtrl+c is escape"
+    sleep
 else
-    if ARGV[0].match /^(setup|s)$/
-        `bundle install`
-         #todo : make cody config
-         puts "not ready to make config"
-    elsif ARGV[0].match /^(erb|e)$/
-        #only erb mode
-        `bundle exec guard only erb`
-    elsif ARGV[0].match /^(deploy|d)$/
+    case ARGV[0]
+    when /^(init|i)$/
+        puts 'cody init...'
+        `gem install listen`
+        `gem install json`
+    when /^(deploy|d)$/
         #deploy path ready
         root_path   = File.split(__FILE__)[0]
         deploy_name = ARGV[1] ? ARGV[1] : "converted-html"
@@ -45,6 +149,7 @@ else
         Dir.glob("#{deploy_path}/**/*.scss") do |f|
             FileUtils.rm f
         end
-        
+    else
+        puts "unknown commend #{ARGV[0]}"
     end
 end
