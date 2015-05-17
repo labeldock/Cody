@@ -22,12 +22,12 @@
 
 ## Feature
   - Cody::ERBStruct
-    - [o] :layout
-    - [o] :block
-    - [o] :include
-    - [o] :json
-    - [-] :partial
-    - [x] :helper
+    - [x] :layout
+    - [x] :block
+    - [x] :include
+    - [x] :json
+    - [ ] :partial
+    - [ ] :helper
     
   - Cody::Deploy
 
