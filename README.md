@@ -25,7 +25,7 @@
     - [x] :layout
     - [x] :block
     - [x] :include
-    - [x] :json
+    - [x] :model(json)
     - [ ] :partial
     - [ ] :helper
     
