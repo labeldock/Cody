@@ -50,10 +50,11 @@ module Cody
             partial_result = []
             datas.each do |data|
                 #make model
-                partial_model = {"model" => {}}
-                data.each{ |key, value| 
-                    partial_model["model"][key.to_sym] = value 
-                }
+                partial_model = {"data" => {}}
+                data.each do |key, value|
+                    partial_model["data"][key.to_sym] = value 
+                end
+                puts "data partial model => #{partial_model}"
                 #model render result
                 partial_result << Cody::ERBStruct.new(nil,partial_model).erb_result_with_text(partial_text)
             end
