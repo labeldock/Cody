@@ -10,7 +10,7 @@ module Cody
     class ERBStruct < OpenStruct
         def initialize erb_path, params = {}
             @erb_path   = erb_path
-            @erb_pwd    = File.split(@erb_path)[0]
+            @erb_pwd    = @erb_path && File.split(@erb_path)[0]
             @erb_blocks = {}
             @erb_layout = nil
             @erb_buffer = 0
@@ -33,22 +33,27 @@ module Cody
         def layout path
             @erb_layout = self.include path, "no search layout file"
         end
-        def partial_each path, datas = nil
+        def partial path, datas = nil
             case datas
                 when Array
                     #pass
                 when Hash
                     datas = [datas]
+                when nil
+                    datas = []
+                    puts "[warn] Cody::ERBStruct::partial_each #{path} => render data is nil"
                 else
                     return "#{@erb_path} => Arguments(2) is must be Array or Hash\n path => #{path}\n data => (#{datas.class})#{datas}"
             end
+            
             partial_text   = self.include path, 'no search partial file'
             partial_result = []
-            
             datas.each do |data|
                 #make model
                 partial_model = {"model" => {}}
-                data.each{ |key, value| partial_model["model"][key] = value }
+                data.each{ |key, value| 
+                    partial_model["model"][key.to_sym] = value 
+                }
                 #model render result
                 partial_result << Cody::ERBStruct.new(nil,partial_model).erb_result_with_text(partial_text)
             end
