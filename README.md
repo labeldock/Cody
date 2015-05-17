@@ -26,8 +26,8 @@
     - [x] :block
     - [x] :include
     - [x] :model(json)
-    - [ ] :partial
-    - [ ] :helper
+    - [x] :partial(data)
+    - [ ] :helper(no idea..)
     
   - Cody::Deploy
 
