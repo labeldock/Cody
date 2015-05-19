@@ -3,7 +3,7 @@ require 'fileutils'
 
 #Cody preference
 module Cody
-    @@version   = "0.0.5"
+    @@version   = "0.0.6"
     @@root_path = Dir.pwd
 end
 
@@ -54,10 +54,13 @@ if ARGV.length == 0
 else
     case ARGV[0]
     when /^(init|i)$/
-        puts 'cody init...'
+        puts 'cody init... gem listen (0/3)'
         `gem install listen`
+        puts 'cody init... gem activesupport (1/3)'
         `gem install activesupport`
+        puts 'cody init... gem json (2/3)'
         `gem install json`
+        puts 'cody init complete (3/3)'
     when /^(deploy|d)$/
         #deploy path ready
         root_path   = File.split(__FILE__)[0]
