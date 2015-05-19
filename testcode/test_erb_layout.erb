@@ -9,8 +9,10 @@
         메인 컨텐츠 안녕
     </main>
 <%= include "_includes/include_comment.html" %>
-<%= partial "_includes/partial.erb",[{text: "partial_output" }] %>
-
+    <ul>
+<%= partial "_includes/partial.erb",[{text: "apple"},{text: "banana"},{text: "fine"}] %>
+    </ul>
+    
 <% end %>
 <% block :footer do %>
     <footer>

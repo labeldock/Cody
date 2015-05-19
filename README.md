@@ -1,6 +1,5 @@
 ## cody-erb
   - 본 프로젝트는 ERB문법을 확장하여 erb의 사용성을 증가시키기 위한 프로젝트입니다.
-  - 이전의 cody liquid-erb프로젝트의 연장입니다.
   - static page 제너레이터와 함께 연동하기위한 베이스코드를 작성합니다.
 
 ## 사용법
@@ -27,8 +26,6 @@
     - [x] :include
     - [x] :model(json)
     - [x] :partial(data)
-    - [ ] :preprocessor
-    - [ ] :helper
     
   - Cody::Deploy
 
@@ -37,7 +34,8 @@
 
 ## Todo
  - [x] ERBStruct 를 listen gem에 최적화하기.
- - [ ] 실제프로젝트에서 검증하기
+ - [ ] 실제프로젝트에서 검증하기.
+ - [ ] 프리프로세서 및 헬퍼를 추가할지 검토.
 
 ## Supported compile format
   - erb
