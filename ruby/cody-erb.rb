@@ -5,7 +5,10 @@ require 'active_support'
 
 module Cody
     def self.version
-        "0.0.4"
+        @@version ? @@version : "unknown"
+    end
+    def self.root_path
+        @@root_path ? @@root_path : Dir.pwd
     end
     class ERBStruct < OpenStruct
         def initialize erb_path, params = {}

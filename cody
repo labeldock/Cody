@@ -1,9 +1,18 @@
 #!/usr/bin/ruby
 require 'fileutils'
+
+#Cody preference
+module Cody
+    @@version   = "0.0.5"
+    @@root_path = Dir.pwd
+end
+
 begin
-   require 'cody-erb'
+    require 'cody-erb'
 rescue Exception => e
-    require './cody-erb.rb'
+    Dir.glob("**/cody-erb.rb") do |f|
+        require_relative f
+    end
 end
 
 cody_deploy_except = ["cody", "Gemfile", "Gemfile.lock", "Guardfile"]
@@ -11,10 +20,9 @@ cody_deploy_except = ["cody", "Gemfile", "Gemfile.lock", "Guardfile"]
 if ARGV.length == 0
     #load cody-erb
     
-    
     require 'listen'
     
-    listener = Listen.to(Dir.pwd, {only: /\.erb$/}) do |modified, added, removed|
+    listener = Listen.to(Cody::root_path, {only: /\.erb$/}) do |modified, added, removed|
         
         modified.each do |p|
             #break temp file
