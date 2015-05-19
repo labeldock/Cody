@@ -27,7 +27,8 @@
     - [x] :include
     - [x] :model(json)
     - [x] :partial(data)
-    - [ ] :helper(no idea..)
+    - [ ] :preprocessor
+    - [ ] :helper
     
   - Cody::Deploy
 
