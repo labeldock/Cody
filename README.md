@@ -37,8 +37,8 @@
  - [x] ERBStruct 를 listen gem에 최적화하기
  - [x] 공통 컨트롤러인 헬퍼추가
  - [ ] 실제프로젝트에서 사용성 검증(6월까지)
- - [ ] gem 분리 (베이스코드와 배포부분이 분리되어 관리)
  - [ ] cody-erb gem 배포 (7월이후)
+ - [ ] 베이스코드와 배포부분이 분리되어야함(gem배포이전)
  
 ## Supported compile format
   - erb
