@@ -21,11 +21,12 @@
 
 ## Feature
   - Cody::ERBStruct
-    - [x] :layout
-    - [x] :block
     - [x] :include
-    - [x] :model(json)
-    - [x] :partial(data)
+    - [x] :layout
+    - [x] :helper    
+    - [x] :block
+    - [x] :partial
+    - [x] :json
     
   - Cody::Deploy
 
@@ -34,11 +35,14 @@
 
 ## Todo
  - [x] ERBStruct 를 listen gem에 최적화하기.
- - [ ] 실제프로젝트에서 검증하기.
- - [ ] 프리프로세서 및 헬퍼를 추가할지 검토.
-
+ - [x] 공통 컨트롤러인 헬퍼추가.
+ - [ ] 실제프로젝트에서 사용성 검증(6월까지).
+ - [ ] cody-erb gem 배포 (7월이후)
+ 
 ## Supported compile format
   - erb
 
 ## require gemfile
   - listen
+  - active_support
+  - json

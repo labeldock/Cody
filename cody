@@ -3,7 +3,7 @@ require 'fileutils'
 
 #Cody preference
 module Cody
-    @@version   = "0.0.6"
+    @@version   = "0.0.7"
     @@root_path = Dir.pwd
 end
 

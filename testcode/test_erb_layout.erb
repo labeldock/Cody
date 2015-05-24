@@ -1,4 +1,6 @@
 <% layout "_layouts/layout.erb" %>
+<% helper  "_models/helper.rb", :navigation %>
+
 <% block :title do %>
     <title>
         타이틀 컨텐츠
@@ -6,14 +8,18 @@
 <% end %>
 <% block :main do %>
     <main>
-        메인 컨텐츠 안녕
+        <ul class="breadcombs">
+            <li><%= @depth1 %></li>
+            <li><%= @depth2 %></li>
+        </ul>
+        <p>Hello main</p>
     </main>
 <%= include "_includes/include_comment.html" %>
     <ul>
 <%= partial "_includes/partial.erb",[{text: "apple"},{text: "banana"},{text: "fine"}] %>
     </ul>
-    
 <% end %>
+
 <% block :footer do %>
     <footer>
         풋터컨텐츠
