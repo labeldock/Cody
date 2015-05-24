@@ -34,9 +34,10 @@
   - Deploy시 "_"로 시작되는 폴더는 템플릿용 폴더로 간주하고 삭제됩니다.
 
 ## Todo
- - [x] ERBStruct 를 listen gem에 최적화하기.
- - [x] 공통 컨트롤러인 헬퍼추가.
- - [ ] 실제프로젝트에서 사용성 검증(6월까지).
+ - [x] ERBStruct 를 listen gem에 최적화하기
+ - [x] 공통 컨트롤러인 헬퍼추가
+ - [ ] 실제프로젝트에서 사용성 검증(6월까지)
+ - [ ] gem 분리 (베이스코드와 배포부분이 분리되어 관리)
  - [ ] cody-erb gem 배포 (7월이후)
  
 ## Supported compile format
