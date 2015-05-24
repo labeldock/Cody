@@ -10,7 +10,7 @@ module Cody
     def self.root_path
         @@root_path ? @@root_path : Dir.pwd
     end
-    def self.bind_helper helper_name, &block
+    def self.helper helper_name, &block
         if @@service_listner and @@helper_names
             helper_name = helper_name.to_sym
             if @@helper_names.include?(helper_name) and block_given?
