@@ -1,11 +1,11 @@
 ## cody-erb
-  - ERB 사용성을 증가시키기위해 문법확장을한 프로젝트입니다.
-  - static page generator와 함께 연동하기위한 베이스코드를 작성합니다.
+  - ERB 확장 및 사용성을 증가시키기 위한 프로젝트입니다.
+  - Static page generator와 함께 연동하기위한 베이스코드를 작성합니다.
   
 ## ATTENTION! - 디자인 골 달성
-  - 본 프로젝트의 목표는 달성되었습니다.
-  - 본 프로젝트의 디자인 목표와 비슷한 "<a href="https://middlemanapp.com">middleman</a>" 잼을 발견하여 더 이상 업데이트는 없을 예정입니다.
-  - "<a href="https://middlemanapp.com">middleman</a>" 잼을 사용할 것을 추천합니다.
+  - 본 프로젝트는 목표를 달성하였습니다.
+  - 하지만 이 프로젝트의 목표와 성격이 비슷한 "<a href="https://middlemanapp.com">middleman</a>" 잼을 발견하여 더 이상 업데이트는 하지 않을 예정입니다.
+  - ERB확장 및 정적페이지 제작은 "<a href="https://middlemanapp.com">middleman</a>" 잼을 사용할 것을 추천합니다.
 
 ## 사용법
 
