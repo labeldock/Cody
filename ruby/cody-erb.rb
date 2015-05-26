@@ -1,7 +1,6 @@
 require 'ostruct'
 require 'erb'
 require 'json'
-require 'active_support'
 
 module Cody
     def self.version
